@@ -1,0 +1,30 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": ["posts"],
+  "properties": {
+    "posts": {
+      "$id": "#/properties/posts",
+      "type": "object",
+      "title": "The Posts Schema",
+      "required": ["items", "selectorTag"],
+      "properties": {
+        "items": {
+          "$id": "#/properties/posts/properties/items",
+          "type": "array",
+          "title": "The Items Schema"
+        },
+        "selectorTag": {
+          "$id": "#/properties/posts/properties/selectorTag",
+          "type": "null",
+          "title": "The selectorTag Schema",
+          "default": null,
+          "examples": [null]
+        }
+      }
+    }
+  }
+}
