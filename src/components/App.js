@@ -1,24 +1,46 @@
-import React, { Component } from 'react';
-import { Route, Switch} from 'react-router-dom';
-import HomePage from '../Pages/HomePage';
-import TodoBlock from './HOKS/todoBlock';
+import React, {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import { Route, Switch, Redirect} from 'react-router-dom';
+// import { withStyles } from '@material-ui/core/styles';
+import HomePage from '../pages/HomePage';
+import AccountPage from '../pages/AccountPage';
+import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
+import AppBar from './Appbar/appbar';
+import PostsPage from '../pages/PostsPage';
+import PostPage from '../pages/PostPage';
+import NotFoundPage from '../pages/NotFound';
+import Modal from '../components/Modal';
+import {getUserProfile} from '../redux/session/sessionOperation';
 
-export default class App extends Component {
+const App = () => {
+  const dispatch = useDispatch();
 
-  state = {
+  useEffect(()=>{
+    dispatch(getUserProfile());
 
-  };
-
-  render() {
+  },[dispatch]);
 
     return (
-      <div>
-        <TodoBlock/>
+      <>
+        <AppBar />
 
         <Switch>
-          <Route path='/' exact component={HomePage}/>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/account" component={AccountPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signup" component={SignupPage} />
+          <Route path="/posts/post/:id" component={PostPage} />
+          <Route path="/posts" component={PostsPage} />
+          <Route component={NotFoundPage} />
+          <Redirect to='/' />
         </Switch>
-      </div>
+
+          <Modal/>
+
+      </>
     );
-  }
-}
+
+};
+
+export default App;

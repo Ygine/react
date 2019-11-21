@@ -1,5 +1,5 @@
 import tv4 from 'tv4';
-import stateSchema from '../schemas/state-validation.json';
+import stateSchema from '../../schemas/state-validation.json';
 
 const stateValidator = store => next => action => {
   next(action);

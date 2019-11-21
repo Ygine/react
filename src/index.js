@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
-import store from './redux/store';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import {ContextProvider} from './components/HOKS/context';
-import 'bootstrap/dist/css/bootstrap.css';
+import { AuthenticationProvider } from './contexts/authentication';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './redux/store';
 import './styles.css';
-
 
 ReactDOM.render(
   <Provider store={store}>
-    <ContextProvider>
+    <PersistGate  loading={null} persistor={persistor}>
       <BrowserRouter>
-        <Route component={App}/>
+        <AuthenticationProvider>
+          <Route component={App}/>
+        </AuthenticationProvider>
       </BrowserRouter>
-    </ContextProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById('root'),
 );
