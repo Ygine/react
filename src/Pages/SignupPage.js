@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 // import PropTypes from 'prop-types';
 import AuthContainerForm from '../components/LoginForm/AuthContainerForm';
 import SignUpForm from '../components/LoginForm/RegisterForm';
-import * as sessionOperations from '../redux/session/sessionOperation';
+// import * as sessionOperations from '../redux/session/sessionOperation';
+import {checkExistUsernameRequest, signupRequest} from '../redux/session/sessionActions';
 import {authenticationContext} from '../contexts/authentication';
 
 const SignupPage = (props) => {
@@ -18,12 +19,12 @@ const SignupPage = (props) => {
   }, [authenticated, props.history]);
 
   const getFormData2 = (data) => {
-    dispatch(sessionOperations.authSignup(data))
+    dispatch(signupRequest(data))
   };
 
   const handleCheckName = (value) => {
-    if(value.length > 0){
-      dispatch(sessionOperations.authCheckExistUsername(value))
+    if(value.length > 1){
+      dispatch(checkExistUsernameRequest(value))
       }
   };
 

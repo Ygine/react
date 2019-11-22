@@ -26,7 +26,6 @@ const TabMenu = (props) => {
       )}
       {authenticated && (
         <>
-
       <li>
         <NavLink activeClassName={classes.active} className={classes.link} to='/account'>
           ACCOUNT

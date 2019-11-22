@@ -2,20 +2,26 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import { authSignup } from './session/sags';
+
 
 // Reducers
 import sessionReducer from './session/sessionReducer';
 import postReducer from './Posts/postsReducer';
 
+//Sags
+import rootPostsSaga from './Posts/postSagas'
+import rootSessionSaga from './session/sessionSagas'
+
 // Middleware
-// import logger from './middleware/logger';
-// import createSagaMiddleware from 'redux-saga'
-// const sagaMiddleware = createSagaMiddleware();
+import logger from './middleware/logger';
 import ReduxThunk from 'redux-thunk';
-const middleware = [ReduxThunk];
+import createSagaMiddleware from 'redux-saga'
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [sagaMiddleware, ReduxThunk, logger];
 const enhancer = applyMiddleware(...middleware);
 
+//Persist
 const sessionPersistConfig = {
   key: 'session',
   storage,
@@ -30,4 +36,7 @@ const rootReducer = combineReducers({
 export const store = createStore(rootReducer, composeWithDevTools(enhancer));
 export const persistor = persistStore(store);
 
-// sagaMiddleware.run(authSignup);
+
+sagaMiddleware.run(rootSessionSaga);
+sagaMiddleware.run(rootPostsSaga);
+

@@ -11,7 +11,6 @@ export default function AlertDialogSlide() {
   const {userInfo} = useContext(authenticationContext);
   const authenticated = useSelector(state => state.session.authenticated);
   const [open, setOpen] = React.useState(true);
-
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
@@ -23,6 +22,7 @@ export default function AlertDialogSlide() {
   return (
     <div>
       {(authenticated && userInfo.username) && (
+
         <Dialog
           open={open}
           TransitionComponent={Transition}

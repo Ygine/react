@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {logout} from '../redux/session/sessionActions';
+import {logOut} from '../redux/session/sessionOperation';
 
 export const authenticationContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthenticationProvider = (props) => {
   // };
 
   const handleLogOut = () => {
-    dispatch(logout());
+    dispatch(logOut());
   };
     
     return (

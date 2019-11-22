@@ -10,8 +10,8 @@ export const fetchPostWithId = (id) => {
   return axios.get(`/posts/post/${id}`).then(response => response.data);
 };
 
-export const deletePost = (id) => {
-  return axios.delete(`/posts/post?id=${id}`).then(response => response.data);
+export const deletePost = (id, options) => {
+  return axios.delete(`/posts/post/${id}`, options).then(response => response.data);
 };
 
 export const createPost = () => {

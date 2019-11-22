@@ -4,6 +4,7 @@ import { red } from '@material-ui/core/colors';
 export const useStyles = makeStyles(theme => ({
   card: {
     flexBasis: 260,
+    maxWidth: 340,
     flexGrow: 1,
   },
     cardContent: {

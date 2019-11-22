@@ -4,7 +4,8 @@ import {useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import AuthContainerForm from '../components/LoginForm/AuthContainerForm';
 import LoginForm from '../components/LoginForm/LoginForm';
-import * as sessionOperations from '../redux/session/sessionOperation';
+// import * as sessionOperations from '../redux/session/sessionOperation';
+import {loginRequest} from '../redux/session/sessionActions';
 import {authenticationContext} from '../contexts/authentication';
 
 const LoginPage = (props) => {
@@ -18,7 +19,7 @@ const LoginPage = (props) => {
   }, [authenticated, props.history]);
 
   const getFormData = (data) => {
-    dispatch(sessionOperations.authLogin(data))
+    dispatch(loginRequest(data))
   };
 
   return (

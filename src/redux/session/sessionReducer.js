@@ -10,10 +10,7 @@ const user = (state = {}, {type, payload}) => {
       };
 
     case ActionType.USERINFO_SUCCESS:
-      return payload.response.data;
-
-    // case ActionType.SIGNUP_SUCCESS:
-    //   return payload.response.message;
+      return payload.response;
 
     case ActionType.LOGOUT:
       return null;
@@ -54,9 +51,11 @@ const error = (state = '', {type, payload}) => {
   switch(type){
     case ActionType.LOGIN_ERROR:
     case ActionType.SIGNUP_ERROR:
-    case ActionType.CHECKEXISTUSERNAME_ERROR:
     case ActionType.USERINFO_ERROR:
       return payload.error;
+
+    case ActionType.CHECKEXISTUSERNAME_ERROR:
+      return 'Логин занят';
 
     case ActionType.CHECKEXISTUSERNAME_SUCCESS:
       return '';

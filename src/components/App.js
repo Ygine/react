@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { Route, Switch, Redirect} from 'react-router-dom';
 // import { withStyles } from '@material-ui/core/styles';
 import HomePage from '../pages/HomePage';
@@ -11,13 +11,15 @@ import PostsPage from '../pages/PostsPage';
 import PostPage from '../pages/PostPage';
 import NotFoundPage from '../pages/NotFound';
 import Modal from '../components/Modal';
-import {getUserProfile} from '../redux/session/sessionOperation';
+// import {getUserProfile} from '../redux/session/sessionOperation';
+import {userInfoRequest} from '../redux/session/sessionActions';
 
 const App = () => {
   const dispatch = useDispatch();
+  const authentication = useSelector(state => state.session.authenticated);
 
   useEffect(()=>{
-    dispatch(getUserProfile());
+      dispatch(userInfoRequest());
 
   },[dispatch]);
 

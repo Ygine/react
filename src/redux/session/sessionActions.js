@@ -8,23 +8,25 @@ export const ActionType = {
   SIGNUP_ERROR: 'SIGNUP_ERROR',
 
   CHECKEXISTUSERNAME_REQUEST: 'CHECKEXISTUSERNAME_REQUEST',
-  CHECKEXISTUSERNAME_SUCCESS: 'SCHECKEXISTUSERNAME_SUCCESS',
-  CHECKEXISTUSERNAME_ERROR: 'SCHECKEXISTUSERNAME_ERROR',
+  CHECKEXISTUSERNAME_SUCCESS: 'CHECKEXISTUSERNAME_SUCCESS',
+  CHECKEXISTUSERNAME_ERROR: 'CHECKEXISTUSERNAME_ERROR',
 
   CHECKTOKEN_REQUEST: 'CHECKTOKEN_REQUEST',
-  CHECKTOKEN_SUCCESS: 'SCHECKTOKEN_SUCCESS',
-  CHECKTOKEN_ERROR: 'SCHECKTOKEN_ERROR',
+  CHECKTOKEN_SUCCESS: 'CHECKTOKEN_SUCCESS',
+  CHECKTOKEN_ERROR: 'CHECKTOKEN_ERROR',
 
   USERINFO_REQUEST: 'USERINFO_REQUEST',
   USERINFO_SUCCESS: 'USERINFO_SUCCESS',
   USERINFO_ERROR: 'USERINFO_ERROR',
 
   LOGOUT: 'LOGOUT',
-
 };
 
-export const loginRequest = () => ({
+export const loginRequest = (userData) => ({
   type: ActionType.LOGIN_REQUEST,
+  payload: {
+    userData
+  }
 });
 
 export const loginSuccess = (response) => ({
@@ -37,15 +39,15 @@ export const loginError = (error) => ({
   payload: {error}
 });
 
-export const signupRequest = () => ({
+export const signupRequest = (userData) => ({
   type: ActionType.SIGNUP_REQUEST,
+  payload: {
+    userData
+  }
 });
 
-export const signupSuccess = (response) => ({
+export const signupSuccess = () => ({
   type: ActionType.SIGNUP_SUCCESS,
-  payload: {
-    response
-  }
 });
 
 export const signupError = (error) => ({
@@ -53,15 +55,15 @@ export const signupError = (error) => ({
   payload: {error}
 });
 
-export const checkExistUsernameRequest = () => ({
+export const checkExistUsernameRequest = (username) => ({
   type: ActionType.CHECKEXISTUSERNAME_REQUEST,
+  payload: {
+    username
+  }
 });
 
-export const checkExistUsernameSuccess = (response) => ({
+export const checkExistUsernameSuccess = () => ({
   type: ActionType.CHECKEXISTUSERNAME_SUCCESS,
-  payload: {
-    response
-  }
 });
 
 export const checkExistUsernameError = (error) => ({
@@ -92,7 +94,7 @@ export const userInfoRequest = () => ({
 export const userInfoSuccess = (response) => ({
   type: ActionType.USERINFO_SUCCESS,
   payload: {
-    response
+    response: response.data
   }
 });
 

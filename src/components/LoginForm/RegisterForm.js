@@ -39,7 +39,7 @@ function SignUpForm({ onSubmit, onFocus, sessionError}) {
           autoComplete="name"
           autoFocus
         />
-      {sessionError && (
+      {(sessionError === 'Логин занят') && (
         <p style={{color: 'red', fontWeight: 600}}>Етот логин уже занят</p>
       )}
 
