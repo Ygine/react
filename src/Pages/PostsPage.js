@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 // import * as postsOperations from '../redux/Posts/postsOperations';
 import PostList from '../components/Posts/PostList';
@@ -27,7 +27,6 @@ const PostsPage = (props) => {
 
   useEffect(() => {
       dispatch(PostActions.fetchPostsStart());
-
   }, [dispatch]);
 
   const handleDeletePost = (id) =>{

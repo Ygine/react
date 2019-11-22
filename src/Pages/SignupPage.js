@@ -1,22 +1,14 @@
-import React, {useContext, useEffect } from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 // import PropTypes from 'prop-types';
 import AuthContainerForm from '../components/LoginForm/AuthContainerForm';
 import SignUpForm from '../components/LoginForm/RegisterForm';
-// import * as sessionOperations from '../redux/session/sessionOperation';
 import {checkExistUsernameRequest, signupRequest} from '../redux/session/sessionActions';
-import {authenticationContext} from '../contexts/authentication';
+import withAuthRedirect from '../components/HOC/WithAuthRedirect';
 
-const SignupPage = (props) => {
-  const {authenticated} = useContext(authenticationContext);
+const SignUpPage = (props) => {
   const dispatch = useDispatch();
   const sessionError = useSelector(state => state.session.error);
-
-  useEffect(() => {
-    if(authenticated){
-      props.history.replace('/account');
-    }
-  }, [authenticated, props.history]);
 
   const getFormData2 = (data) => {
     dispatch(signupRequest(data))
@@ -39,4 +31,4 @@ const SignupPage = (props) => {
 
 // LoginPage.propTypes = {};
 
-export default SignupPage;
+export default withAuthRedirect(SignUpPage);

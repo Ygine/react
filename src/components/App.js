@@ -1,22 +1,35 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect, lazy, Suspense } from 'react';
+import {useDispatch} from 'react-redux';
 import { Route, Switch, Redirect} from 'react-router-dom';
-// import { withStyles } from '@material-ui/core/styles';
-import HomePage from '../pages/HomePage';
-import AccountPage from '../pages/AccountPage';
-import LoginPage from '../pages/LoginPage';
-import SignupPage from '../pages/SignupPage';
 import AppBar from './Appbar/appbar';
-import PostsPage from '../pages/PostsPage';
-import PostPage from '../pages/PostPage';
 import NotFoundPage from '../pages/NotFound';
 import Modal from '../components/Modal';
-// import {getUserProfile} from '../redux/session/sessionOperation';
 import {userInfoRequest} from '../redux/session/sessionActions';
+import ProtectedRoute from '../components/ProtectedRoute';
+
+
+const AsyncHomePage = lazy(() =>
+  import('../pages/HomePage' /* webpackChunkName: "home-page" */),
+);
+const AsyncPostsPage = lazy(() =>
+  import('../pages/PostsPage' /* webpackChunkName: "posts-page" */),
+);
+const AsyncPostPage = lazy(() =>
+  import('../pages/PostPage' /* webpackChunkName: "post-page" */),
+);
+const AsyncAccountPage = lazy(() =>
+  import('../pages/AccountPage' /* webpackChunkName: "account-page" */),
+);
+const AsyncLoginPage = lazy(() =>
+  import('../pages/LoginPage' /* webpackChunkName: "login-page" */),
+);
+const AsyncSignUpPage = lazy(() =>
+  import('../pages/SignupPage' /* webpackChunkName: "signUp-page" */),
+);
+
 
 const App = () => {
   const dispatch = useDispatch();
-  const authentication = useSelector(state => state.session.authenticated);
 
   useEffect(()=>{
       dispatch(userInfoRequest());
@@ -27,18 +40,20 @@ const App = () => {
       <>
         <AppBar />
 
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/account" component={AccountPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signup" component={SignupPage} />
-          <Route path="/posts/post/:id" component={PostPage} />
-          <Route path="/posts" component={PostsPage} />
-          <Route component={NotFoundPage} />
-          <Redirect to='/' />
-        </Switch>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            <ProtectedRoute path="/account" component={AsyncAccountPage} redirectTo="/login" />
+            <ProtectedRoute path="/posts/post/:id" component={AsyncPostPage} redirectTo="/login" />
+            <ProtectedRoute path="/posts" component={AsyncPostsPage} redirectTo="/login" />
+            <Route exact path="/" component={AsyncHomePage} />
+            <Route path="/login" component={AsyncLoginPage} />
+            <Route path="/signup" component={AsyncSignUpPage} />
+            <Route component={NotFoundPage} />
+            <Redirect to='/' />
+          </Switch>
+        </Suspense>
 
-          <Modal/>
+        <Modal/>
 
       </>
     );

@@ -1,22 +1,14 @@
-import React, { useEffect, useContext} from 'react';
+import React from 'react';
 import {useDispatch} from 'react-redux';
 // import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import AuthContainerForm from '../components/LoginForm/AuthContainerForm';
 import LoginForm from '../components/LoginForm/LoginForm';
-// import * as sessionOperations from '../redux/session/sessionOperation';
 import {loginRequest} from '../redux/session/sessionActions';
-import {authenticationContext} from '../contexts/authentication';
+import withAuthRedirect from '../components/HOC/WithAuthRedirect';
 
 const LoginPage = (props) => {
-  const {authenticated} = useContext(authenticationContext);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if(authenticated){
-      props.history.replace('/account');
-    }
-  }, [authenticated, props.history]);
 
   const getFormData = (data) => {
     dispatch(loginRequest(data))
@@ -35,4 +27,4 @@ LoginPage.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export default LoginPage;
+export default withAuthRedirect(LoginPage);

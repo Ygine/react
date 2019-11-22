@@ -18,7 +18,6 @@ const UserProfile = ({history}) => {
 
   const handleRedirect = () =>{
     handleLogOut();
-    history.replace('/');
   };
 
   return (

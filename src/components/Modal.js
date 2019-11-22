@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Dialog,DialogContent,DialogContentText,DialogTitle,Slide} from '@material-ui/core';
 import {authenticationContext} from '../contexts/authentication';
 
@@ -9,22 +9,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AlertDialogSlide() {
   const {userInfo} = useContext(authenticationContext);
-  const authenticated = useSelector(state => state.session.authenticated);
-  const [open, setOpen] = React.useState(true);
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const dispatch = useDispatch();
+  const showSalutWindow = useSelector(state => state.session.showSalutWindow);
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch({type: 'SOLUTION_WINDOW_HIDE', payload: false})
   };
 
   return (
     <div>
-      {(authenticated && userInfo.username) && (
+      {showSalutWindow && (
 
         <Dialog
-          open={open}
+          open={showSalutWindow}
           TransitionComponent={Transition}
           keepMounted
           onClose={handleClose}

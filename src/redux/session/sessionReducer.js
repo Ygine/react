@@ -5,12 +5,10 @@ const user = (state = {}, {type, payload}) => {
   switch(type){
     // на что будет реагировать юзер?
     case ActionType.LOGIN_SUCCESS:
-      return {
-        userId: payload.response.userId
-      };
+      return {userId: payload.response.userId};
 
     case ActionType.USERINFO_SUCCESS:
-      return payload.response;
+      return  payload.response;
 
     case ActionType.LOGOUT:
       return null;
@@ -47,6 +45,19 @@ const authenticated = (state = false, {type, payload}) => {
   }
 };
 
+const showSalutWindow = (state = false, {type, payload}) => {
+  switch(type){
+    case ActionType.LOGIN_SUCCESS:
+      return true;
+
+    case "SOLUTION_WINDOW_HIDE":
+      return false;
+
+    default:
+      return state;
+  }
+};
+
 const error = (state = '', {type, payload}) => {
   switch(type){
     case ActionType.LOGIN_ERROR:
@@ -70,5 +81,6 @@ export default combineReducers({
     token,
     authenticated,
     error,
+    showSalutWindow,
   }
 )
