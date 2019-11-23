@@ -10,10 +10,16 @@ const withAuthRedirect = BaseComponent => {
       const {authenticated} = useContext(authenticationContext);
 
     useEffect(() => {
-      if(authenticated){
-        props.history.replace('/account');
+
+      if (authenticated && props.location.state && props.location.state.from) {
+        return props.history.replace(props.location.state.from);
       }
-    }, [authenticated, props.history]);
+
+      if(authenticated){
+       return props.history.replace('/account');
+      }
+
+    }, [authenticated, props]);
 
     return (
         <BaseComponent {...props}/>

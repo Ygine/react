@@ -2,9 +2,9 @@
 //         signupRequest, signupSuccess, signupError,
 //         checkExistUsernameRequest, checkExistUsernameSuccess, checkExistUsernameError,
 //         userInfoRequest, userInfoSuccess, userInfoError, logout} from './sessionActions';
- import {logout} from './sessionActions';
 // import * as sessionAPI from '../../services/session-api';
 // import * as sessionSelectors from './sessionsSelectors';
+import {logout} from './sessionActions';
 
 export const logOut = () => dispatch => {
   dispatch(logout());

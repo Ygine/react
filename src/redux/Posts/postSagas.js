@@ -24,28 +24,38 @@ function* fetchPostsSaga(){
 
 function* fetchDeletePostSaga({payload}){
   try{
-    yield put(PostActions.deletePostStart());
-
-    const response = yield postsAPI.deletePost(payload.id);
-    yield put(PostActions.deletePostSuccess(response.data))
+    yield postsAPI.deletePost(payload.id);
+    yield put(PostActions.deletePostSuccess(payload.id))
   }catch(error){
     yield put(PostActions.deletePosError(error));
+  }
+}
+
+function* fetchAddPostSaga({payload}){
+  try{
+    const response = yield postsAPI.createPost(payload.postBody);
+    yield put(PostActions.addPostSuccess(response.data))
+  }catch(error){
+    yield put(PostActions.addPostError(error));
   }
 }
 
 function* watcherSaga(){
   yield takeEvery('FETCH_POSTS_START', fetchPostsSaga);
 }
-
 function* watcherDeleteSaga(){
-  yield takeLatest(PostActions.ActionType.DELETE_POST_SUCCESS, fetchDeletePostSaga);
+  yield takeLatest(PostActions.ActionType.DELETE_POST_START, fetchDeletePostSaga);
+}
+function* watcherAddPostSaga(){
+  yield takeLatest(PostActions.ActionType.ADD_POST_START, fetchAddPostSaga);
 }
 
 
 export default function* rootPostsSaga() {
   yield all([
     watcherSaga(),
-    watcherDeleteSaga()
+    watcherDeleteSaga(),
+    watcherAddPostSaga(),
   ])
 }
 

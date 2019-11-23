@@ -7,7 +7,7 @@ const itemsReducer = (state = [], { type, payload }) => {
       return payload.posts;
 
     case ActionType.DELETE_POST_SUCCESS:
-      return state.filter(item => item.id !== payload.id);
+      return state.filter(item => item._id !== payload.id);
 
     case ActionType.ADD_POST_SUCCESS:
       return [...state, payload.post];

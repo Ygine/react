@@ -1,11 +1,12 @@
-import React, {useContext, useState } from 'react';
-import {Dialog,DialogContent,DialogContentText,DialogTitle,Slide} from '@material-ui/core';
+import React from 'react';
+import AddPostForm from './AddPostForm';
+import {Dialog,DialogContent,DialogTitle,Slide} from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({isOpen, handleClose}) {
+export default function AlertDialogSlide({isOpen, handleClose, handleAddPost}) {
 
   return (
         <Dialog style={{top: -280}}
@@ -16,12 +17,11 @@ export default function AlertDialogSlide({isOpen, handleClose}) {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title">Added post</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
-            </DialogContentText>
+          <DialogTitle id="alert-dialog-slide-title">Add your post</DialogTitle>
+          <DialogContent style={{ paddingBottom: 20}}>
+
+              <AddPostForm onAddPost={handleAddPost} onCloser={handleClose}/>
+
           </DialogContent>
         </Dialog>
   );

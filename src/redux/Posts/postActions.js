@@ -28,11 +28,14 @@ export const fetchPostsError = error => ({
   payload: { error }
 });
 
-export const deletePostStart = () => ({
+export const deletePostStart = (id) => ({
   type: ActionType.DELETE_POST_START,
+  payload: {
+    id
+  }
 });
 
-export const deletePostSuccess = id => ({
+export const deletePostSuccess = (id) => ({
   type: ActionType.DELETE_POST_SUCCESS,
   payload: { id }
 });
@@ -44,17 +47,20 @@ export const deletePosError = error => ({
   }
 });
 
-export const addPostStart = () => ({
-  type: ActionType.DELETE_POST_START,
+export const addPostStart = (postBody) => ({
+  type: ActionType.ADD_POST_START,
+  payload: {
+    postBody
+  }
 });
 
 export const addPostSuccess = post => ({
-  type: ActionType.DELETE_POST_SUCCESS,
+  type: ActionType.ADD_POST_SUCCESS,
   payload: { post }
 });
 
 export const addPostError = error => ({
-  type: ActionType.DELETE_POST_ERROR,
+  type: ActionType.ADD_POST_ERROR,
   payload: {
     error
   }

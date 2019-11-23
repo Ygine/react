@@ -14,8 +14,8 @@ export const deletePost = (id, options) => {
   return axios.delete(`/posts/post/${id}`, options).then(response => response.data);
 };
 
-export const createPost = () => {
-  return axios.post(`/posts`).then(response => response.data);
+export const createPost = (data) => {
+  return axios.post(`/posts`, data).then(response => response.data);
 };
 
 export const updatePost = () => {

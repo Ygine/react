@@ -7,26 +7,25 @@ import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {useStyles} from './postStyle';
 
-const PostCard = ({post, onDeletePost, link}) => {
+
+const PostCard = ({post, link, onDeletePost}) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleDeletePost = () => {
     handleClose();
-    onDeletePost()
+    onDeletePost();
   };
 
   const data = Date.parse(post.createdAt);
-  const isoDate = new Date(data);
+  const isDate = new Date(data);
 
     return (
       <Card className={classes.cardContent}>
@@ -43,7 +42,7 @@ const PostCard = ({post, onDeletePost, link}) => {
 
           }
           title={post.title}
-          subheader={isoDate.toLocaleString()}
+          subheader={isDate.toLocaleString()}
         />
         <CardMedia
           className={classes.media}
