@@ -4,7 +4,7 @@ import PostCard from './PostCard';
 import { withRouter } from 'react-router-dom';
 import { useStyles } from './postStyle';
 
-function PostList( {deletePost, match, location, posts} ) {
+function PostList( {deletePost, match, location, posts, onOpenUpdatePost} ) {
   const classes = useStyles();
 
   return (
@@ -15,7 +15,8 @@ function PostList( {deletePost, match, location, posts} ) {
               <PostCard link={{
                 pathname: `${match.path}/post/${post._id}`,
                 state: { from: location },
-              }} onDeletePost={() => deletePost(post._id)}  post={post}/>
+              }} onDeletePost={() => deletePost(post._id)}  post={post}
+                 onUpdatePost={(data) => onOpenUpdatePost(post._id, data)}/>
             </Grid>
           ))}
       </Grid>

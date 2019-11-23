@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
-const AddPostForm = ({onCloser, onAddPost}) => {
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+const AddPostForm = ({postData = '', onAddPost, textButton}) => {
+  const [title, setTitle] = useState(postData.title);
+  const [text, setText] = useState(postData.text);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,12 +40,11 @@ const AddPostForm = ({onCloser, onAddPost}) => {
       />
 
       <Button
-        onClick={onCloser}
         type="submit"
         fullWidth
         variant="contained"
         color="primary"
-      >Add Post
+      >{textButton}
       </Button>
     </form>
   );

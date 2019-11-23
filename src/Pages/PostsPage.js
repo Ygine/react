@@ -1,30 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import PostList from '../components/Posts/PostList';
-import {makeStyles, Typography} from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import * as PostActions from '../redux/Posts/postActions';
-import AddPostModal from '../components/Posts/AddPostModal';
+import PostModal from '../components/Posts/PostModal';
 import PopoverPost from '../components/Posts/Popover';
+import AddPostForm from '../components/Posts/AddPostForm';
 import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 
-const useStyles = makeStyles(theme => ({
-  title:{
-    position: 'relative',
-    marginBottom: 15,
-    textAlign: 'center',
-    fontWeight: 600,
-    marginTop: 20,
-  },
-}));
+
+const filteredPosts = (posts, query) => posts.filter(post => {
+  const str = post.title.toLowerCase() + "<span style='color: red'>1</span>" + post.text.toLowerCase();
+  return str.includes(query.toLowerCase());
+});
 
 
 const PostsPage = ({enqueueSnackbar}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts.items);
-  const [isOpen, setIsOpen] = useState(false);
+  const filter = useSelector(state => state.posts.filter);
+
+  const [isOpenAddPost, setOpenAddPost] = useState(false);
+  const [isOpenUpdatePost, setOpenUpdatePost] = useState(false);
   const [postLength, setPostLength] = useState(0);
+  const [updatePostId, setupdatePostId] = useState(null);
+  const [updatePostData, setupdatePostData] = useState(null);
 
   useEffect(() => {
       dispatch(PostActions.fetchPostsStart());
@@ -57,24 +59,49 @@ const PostsPage = ({enqueueSnackbar}) => {
   };
   const handleAddPost = (data) =>{
     dispatch(PostActions.addPostStart(data));
+    setOpenAddPost(false);
+  };
+  const handleUpdatePost = (data) =>{
+    dispatch(PostActions.updatePostStart(data, updatePostId));
+    setOpenUpdatePost(false);
   };
 
 
-  const handleOpenModal = (isOpenModal) =>{
-    setIsOpen(isOpenModal);
+  const handleOpenAddPostModal = () =>{
+    setOpenAddPost(true);
   };
-  const handleCloseModal = (isOpenModal) =>{
-    setIsOpen(!isOpenModal);
+  const handleCloseAddPostModal = () =>{
+    setOpenAddPost(false);
+  };
+
+
+  const handleOpenUpdatePostModal = (id, data) =>{
+    setupdatePostData(data);
+    setupdatePostId(id);
+    setOpenUpdatePost(true);
+  };
+  const handleCloseUpdatePostModal = () =>{
+    setOpenUpdatePost(false);
   };
 
   return (
     <>
-      <AddPostModal handleAddPost={handleAddPost} handleClose={handleCloseModal} isOpen={isOpen}/>
-      <Typography  className={classes.title} variant='h4'  component="h1">
-        MY POSTS
-        <PopoverPost onOpenModal={handleOpenModal}/>
+        {isOpenAddPost && (
+          <PostModal  title='Add new post' handleClose={handleCloseAddPostModal} isOpen={isOpenAddPost}>
+            <AddPostForm  textButton="add post" onAddPost={handleAddPost}/>
+          </PostModal>
+        )}
+
+        {isOpenUpdatePost && (
+          <PostModal title='Update your post' handleClose={handleCloseUpdatePostModal}  isOpen={isOpenUpdatePost}>
+            <AddPostForm postData={updatePostData} textButton="update post" onAddPost={handleUpdatePost}/>
+          </PostModal>
+        )}
+
+      <Typography  className={classes.title} variant='h4' component="h1"> MY POSTS
+        <PopoverPost onOpenModal={handleOpenAddPostModal}/>
       </Typography>
-      <PostList posts={posts} deletePost={handleDeletePost}/>
+      <PostList posts={filteredPosts(posts, filter)} onOpenUpdatePost={handleOpenUpdatePostModal} deletePost={handleDeletePost}/>
     </>
   )
 };
@@ -84,3 +111,15 @@ PostsPage.propTypes = {
 };
 
 export default withSnackbar(PostsPage);
+
+const useStyles = makeStyles(theme => ({
+  title:{
+    position: 'relative',
+    marginBottom: 15,
+    textAlign: 'center',
+    fontWeight: 600,
+    marginTop: 20,
+  },
+}));
+
+

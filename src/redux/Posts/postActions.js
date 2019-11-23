@@ -11,7 +11,14 @@ export const ActionType = {
   ADD_POST_SUCCESS: 'ADD_POST_SUCCESS',
   ADD_POST_ERROR: 'ADD_POST_ERROR',
 
-  DELETE_POST: 'DELETE_POST',
+  UPDATE_POST_START: 'UPDATE_POST_START',
+  UPDATE_POST_SUCCESS: 'UPDATE_POST_SUCCESS',
+  UPDATE_POST_ERROR: 'UPDATE_POST_ERROR',
+
+  FILTER_POST_START: 'FILTER_POST_START',
+  // FILTER_POST_SUCCESS: 'FILTER_POST_SUCCESS',
+  // FILTER_POST_ERROR: 'FILTER_POST_ERROR',
+
 };
 
 export const fetchPostsStart = () => ({
@@ -65,3 +72,43 @@ export const addPostError = error => ({
     error
   }
 });
+
+
+export const updatePostStart = (data, updatePostId) => ({
+  type: ActionType.UPDATE_POST_START,
+  payload: {
+    data,
+    updatePostId
+  }
+});
+
+export const updatePostSuccess = post => ({
+  type: ActionType.UPDATE_POST_SUCCESS,
+  payload: { post }
+});
+
+export const updatePostError = error => ({
+  type: ActionType.UPDATE_POST_ERROR,
+  payload: {
+    error
+  }
+});
+
+export const filterPostStart = (query) => ({
+  type: ActionType.FILTER_POST_START,
+  payload: {
+    query
+  }
+});
+
+// export const filterPostSuccess = query => ({
+//   type: ActionType.FILTER_POST_SUCCESS,
+//   payload: { query }
+// });
+//
+// export const filterPostError = error => ({
+//   type: ActionType.FILTER_POST_ERROR,
+//   payload: {
+//     error
+//   }
+// });

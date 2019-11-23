@@ -18,6 +18,6 @@ export const createPost = (data) => {
   return axios.post(`/posts`, data).then(response => response.data);
 };
 
-export const updatePost = () => {
-  return axios.put(`/posts/post/{id}`).then(response => response.data);
+export const updatePost = (postData) => {
+  return axios.put(`/posts/post/${postData.updatePostId}`, postData.data ).then(response => response.data);
 };

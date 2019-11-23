@@ -8,7 +8,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {useStyles} from './postStyle';
 
 
-const PostCard = ({post, link, onDeletePost}) => {
+const PostCard = ({post, link, onDeletePost, onUpdatePost}) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,6 +22,11 @@ const PostCard = ({post, link, onDeletePost}) => {
   const handleDeletePost = () => {
     handleClose();
     onDeletePost();
+  };
+
+  const handleUpdatePost = () => {
+    handleClose();
+    onUpdatePost({title:post.title, text:post.text});
   };
 
   const data = Date.parse(post.createdAt);
@@ -46,7 +51,7 @@ const PostCard = ({post, link, onDeletePost}) => {
         />
         <CardMedia
           className={classes.media}
-          image="https://placeimg.com/310/230/any"
+          image={`https://placeimg.com/640/480/any/${post._id}`}
           title="Paella dish"
         />
         <CardContent>
@@ -75,7 +80,7 @@ const PostCard = ({post, link, onDeletePost}) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Update</MenuItem>
+          <MenuItem onClick={handleUpdatePost}>Update</MenuItem>
           <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
         </Menu>
         </Card>

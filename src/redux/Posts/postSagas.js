@@ -40,6 +40,15 @@ function* fetchAddPostSaga({payload}){
   }
 }
 
+function* fetchUpdatePostSaga({payload}){
+  try{
+    const response = yield postsAPI.updatePost(payload);
+    yield put(PostActions.updatePostSuccess(response.data))
+  }catch(error){
+    yield put(PostActions.updatePostError(error));
+  }
+}
+
 function* watcherSaga(){
   yield takeEvery('FETCH_POSTS_START', fetchPostsSaga);
 }
@@ -49,6 +58,9 @@ function* watcherDeleteSaga(){
 function* watcherAddPostSaga(){
   yield takeLatest(PostActions.ActionType.ADD_POST_START, fetchAddPostSaga);
 }
+function* watcherUpdatePostSaga(){
+  yield takeLatest(PostActions.ActionType.UPDATE_POST_START, fetchUpdatePostSaga);
+}
 
 
 export default function* rootPostsSaga() {
@@ -56,6 +68,7 @@ export default function* rootPostsSaga() {
     watcherSaga(),
     watcherDeleteSaga(),
     watcherAddPostSaga(),
+    watcherUpdatePostSaga(),
   ])
 }
 

@@ -13,12 +13,12 @@ import rootPostsSaga from './Posts/postSagas'
 import rootSessionSaga from './session/sessionSagas'
 
 // Middleware
-// import logger from './middleware/logger';
+import logger from './middleware/logger';
 import ReduxThunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga'
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [sagaMiddleware, ReduxThunk];
+const middleware = [sagaMiddleware, ReduxThunk, logger];
 const enhancer = applyMiddleware(...middleware);
 
 //Persist

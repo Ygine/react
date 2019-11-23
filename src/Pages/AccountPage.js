@@ -3,48 +3,6 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper, Typography } from '@material-ui/core';
 import {authenticationContext} from '../contexts/authentication';
 
-const StyledTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-      maxWidth: 900,
-    },
-  },
-}))(TableRow);
-
-function createData(name, values) {
-  return { name, values};
-}
-
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '80%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
-    margin: '0 auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  title:{
-    position: 'relative',
-    marginBottom: 15,
-    textAlign: 'center',
-    fontWeight: 600,
-    marginTop: 20,
-  },
-}));
 
 export default function AccountPage() {
   const {userInfo} = useContext(authenticationContext);
@@ -89,3 +47,46 @@ export default function AccountPage() {
       </>
   );
 }
+
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+      maxWidth: 900,
+    },
+  },
+}))(TableRow);
+
+function createData(name, values) {
+  return { name, values};
+}
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '80%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+    margin: '0 auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+  title:{
+    position: 'relative',
+    marginBottom: 15,
+    textAlign: 'center',
+    fontWeight: 600,
+    marginTop: 20,
+  },
+}));

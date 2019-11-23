@@ -6,18 +6,6 @@ import {Container, Paper, Typography, Button } from '@material-ui/core';
 
 
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: 40,
-    padding: theme.spacing(3, 2),
-  },
-  title:{
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 40,
-  }
-}));
 
 const PostPage = (props) => {
   const classes = useStyles();
@@ -71,3 +59,18 @@ PostPage.propTypes = {
 };
 
 export default PostPage;
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: 40,
+    padding: theme.spacing(3, 2),
+  },
+  title:{
+    marginBottom: 15,
+  },
+  button: {
+    marginTop: 40,
+  }
+}));
+

@@ -12,6 +12,14 @@ const itemsReducer = (state = [], { type, payload }) => {
     case ActionType.ADD_POST_SUCCESS:
       return [...state, payload.post];
 
+    case ActionType.UPDATE_POST_SUCCESS:
+      return state.map(post =>
+        (post._id === payload.post._id)?
+        {...payload.post, text: payload.post.text, title:payload.post.title} : post);
+
+    // case ActionType.FILTER_POST_START:
+    //   return state.filter( post =>  post.title.includes(payload.query));
+
     case ActionType.FETCH_POSTS_ERROR:
       return state;
 
@@ -25,6 +33,7 @@ const loadReducer = (state = false, { type, payload }) => {
     case ActionType.FETCH_POSTS_START:
     case ActionType.DELETE_POST_START:
     case ActionType.ADD_POST_START:
+    case ActionType.UPDATE_POST_START:
       return true;
     case ActionType.FETCH_POSTS_SUCCESS:
     case ActionType.FETCH_POSTS_ERROR:
@@ -39,15 +48,27 @@ const loadReducer = (state = false, { type, payload }) => {
   }
 };
 
+const filterReducer = (state = '', { type, payload }) => {
+  switch (type) {
+    case ActionType.FILTER_POST_START:
+      return payload.query;
+
+    default:
+      return state;
+  }
+};
+
 const errorReducer = (state = null, { type, payload }) => {
   switch (type) {
     case ActionType.FETCH_POSTS_START:
     case ActionType.DELETE_POST_START:
     case ActionType.ADD_POST_START:
+    case ActionType.UPDATE_POST_START:
       return null;
     case ActionType.FETCH_POSTS_ERROR:
     case ActionType.DELETE_POST_ERROR:
     case ActionType.ADD_POST_ERROR:
+    case ActionType.UPDATE_POST_ERROR:
       return payload.error;
 
     default:
@@ -58,5 +79,6 @@ const errorReducer = (state = null, { type, payload }) => {
 export default combineReducers({
   items: itemsReducer,
   loading: loadReducer,
-  error: errorReducer
+  filter: filterReducer,
+  error: errorReducer,
 });

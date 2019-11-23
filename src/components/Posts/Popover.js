@@ -20,7 +20,7 @@ const PopoverPost = ({onOpenModal}) => {
 
   return (
     <>
-      <Fab href={null} onClick={() => onOpenModal(true)} color="primary"
+      <Fab href={null} onClick={onOpenModal} color="primary"
            aria-label="add" className={classes.fab} aria-haspopup="true">
         <AddIcon/>
       </Fab>
